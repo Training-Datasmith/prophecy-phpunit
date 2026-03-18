@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Prophecy\PhpUnit\Tests\Fixtures;
 
 use PHPUnit\Framework\TestCase;
@@ -12,7 +14,7 @@ class NoClass extends TestCase
     public function testProphesizeWithoutArguments(): void
     {
         $prophecy = $this->prophesize()->reveal();
-        
+
         $this->assertInstanceOf(\stdClass::class, $prophecy);
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Prophecy\PhpUnit;
 
@@ -118,7 +120,7 @@ trait ProphecyTrait
     private function getProphet(): Prophet
     {
         if ($this->prophet === null) {
-            $this->prophet = new Prophet;
+            $this->prophet = new Prophet();
         }
 
         return $this->prophet;
