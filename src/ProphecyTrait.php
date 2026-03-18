@@ -45,7 +45,7 @@ trait ProphecyTrait
     protected function prophesize(?string $classOrInterface = null): ObjectProphecy
     {
         static $isPhpUnit9;
-        $isPhpUnit9 = $isPhpUnit9 ?? method_exists($this, 'recordDoubledType');
+        $isPhpUnit9 ??= method_exists($this, 'recordDoubledType');
 
         if (! $isPhpUnit9) {
             // PHPUnit 10.1
