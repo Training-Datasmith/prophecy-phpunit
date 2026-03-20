@@ -58,6 +58,16 @@ trait Prophecy_Trait
      * @postCondition
      */
     #[Post_Condition]
+    /**
+     * Verifies all Prophecy predictions after each test and converts failures to PHPUnit assertions.
+     *
+     * Called automatically via `@postCondition` / `#[PostCondition]`. Checks that all
+     * method prophecies were satisfied (i.e., all `shouldBeCalled()` and similar predictions
+     * were met). On failure, wraps the `PredictionException` in an `AssertionFailedError`
+     * so PHPUnit records it as a test failure rather than an error.
+     *
+     * @throws Assertion_Failed_Error When one or more prophecy predictions were not satisfied
+     */
     protected function verify_prophecy_doubles(): void
     {
         if ($this->prophet === null) {
@@ -75,6 +85,13 @@ trait Prophecy_Trait
      * @after
      */
     #[After]
+    /**
+     * Tears down the Prophet instance and counts any remaining prophecy assertions.
+     *
+     * Called automatically via `@after` / `#[After]`. Ensures assertion counts are
+     * recorded even when a test fails before `verify_prophecy_doubles()` runs,
+     * then nulls out the Prophet to prevent state leaking between tests.
+     */
     protected function tear_down_prophecy(): void
     {
         if (null !== $this->prophet && !$this->prophecy_assertions_counted) {
